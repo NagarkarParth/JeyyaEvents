@@ -1,0 +1,1 @@
+fireworks.mp4 is a 10-second 1080 × 1920 fireworks celebration clip by Teju, downloaded from https://www.pexels.com/video/people-enjoying-a-fireworks-show-17506797/. Pexels license: https://www.pexels.com/license/. It loops muted in the hero panel. Replace it with your own compressed MP4 at this same path to use a JEYYA EVENTS recording.

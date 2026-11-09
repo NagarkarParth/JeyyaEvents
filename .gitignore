@@ -1,0 +1,8 @@
+node_modules/
+.next/
+.next-build/
+.next-final/
+out/
+.vercel/
+.env*
+!.env.example
