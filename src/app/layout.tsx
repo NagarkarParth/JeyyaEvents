@@ -12,14 +12,14 @@ export const metadata: Metadata = {
   title: { default: "Jeyya Events | Fireworks & Stage Effects Across India", template: "%s | Jeyya Events" },
   description,
   ...(site ? { metadataBase: new URL(site) } : {}),
-  keywords: ["Jeyya Events", "Fireworks display services in India", "Professional fireworks company in India", "Wedding fireworks across India", "Event special effects in India", "Stage effects company in India", "Pyro musical fireworks in India", "Computerized fireworks display", "Rooftop fireworks display services", "Concert special effects in India", "Wedding fireworks and stage effects", "Nationwide event production services"],
+  keywords: ["Jeyya Events", "Fireworks display services in India", "Professional fireworks company in India", "Wedding fireworks across India", "Event special effects in India", "Stage effects company in India", "Pyro musical fireworks in India", "Computerized fireworks display", "Rooftop fireworks display services", "Concert special effects in India", "Wedding fireworks and stage effects", "Festival fireworks in India", "Indoor and outdoor fireworks services", "Nationwide event production services"],
   openGraph: { title: "Jeyya Events | Fireworks & Stage Effects Across India", description, type: "website", locale: "en_IN" },
   twitter: { card: "summary", title: "Jeyya Events | Fireworks & Stage Effects Across India", description },
   icons: { icon: "/favicon.png", shortcut: "/favicon.png", apple: "/favicon.png" },
   alternates: { canonical: "/" },
 };
 
-const jsonLd = { "@context": "https://schema.org", "@type": "LocalBusiness", name: "Jeyya Events", description, telephone: "+91-7057292923", address: { "@type": "PostalAddress", streetAddress: "Fulsundar Super Market, Near ST Stand, Pune-Nashik Highway", addressLocality: "Narayangaon", addressRegion: "Maharashtra", postalCode: "410504", addressCountry: "IN" }, areaServed: { "@type": "Country", name: "India" }, knowsAbout: ["Fireworks display services in India", "Computerized fireworks displays", "Wedding fireworks", "Stage effects", "Concert special effects", "Pyro musical fireworks", "Nationwide event production services"] };
+const jsonLd = { "@context": "https://schema.org", "@type": "LocalBusiness", name: "Jeyya Events", description, telephone: "+91-7057292923", address: { "@type": "PostalAddress", streetAddress: "Fulsundar Super Market, Near ST Stand, Pune-Nashik Highway", addressLocality: "Narayangaon", addressRegion: "Maharashtra", postalCode: "410504", addressCountry: "IN" }, areaServed: { "@type": "Country", name: "India" }, knowsAbout: ["Fireworks display services in India", "Computerized fireworks displays", "Wedding fireworks", "Stage effects", "Concert special effects", "Pyro musical fireworks", "Festival fireworks", "Indoor and outdoor fireworks", "Nationwide event production services"] };
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return <html lang="en"><body className={`${sans.variable} ${serif.variable}`}><script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />{children}</body></html>;

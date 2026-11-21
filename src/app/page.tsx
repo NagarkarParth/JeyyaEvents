@@ -3,14 +3,14 @@
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
-import { ArrowDown, ArrowRight, ArrowUpRight, Check, Flame, Heart, MapPin, Menu, Music2, Pause, Phone, Play, Smartphone, Sparkles, Star, WandSparkles, Wind, X } from "lucide-react";
+import { ArrowDown, ArrowRight, ArrowUpRight, Building2, Check, ChevronLeft, ChevronRight, Flame, Heart, MapPin, Menu, Music2, PartyPopper, Pause, Phone, Play, Smartphone, Sparkles, Star, WandSparkles, Wind, X } from "lucide-react";
 
 const phone = "7057292923";
 const wa = "917057292923";
 const inquiry = "Hello Jeyya Events, I am interested in your event services. I would like to discuss my event requirements.";
 const waUrl = (message = inquiry) => `https://wa.me/${wa}?text=${encodeURIComponent(message)}`;
 const address = "Fulsundar Super Market, Near ST Stand, Pune-Nashik Highway, Narayangaon, Taluka Junnar, District Pune, Maharashtra – 410504, India.";
-const mapsUrl = "https://maps.app.goo.gl/nAvzhzi446Ujr9Ai8";
+const mapsUrl = "https://maps.app.goo.gl/grFMgddvhYX2Xd976";
 const img = (filename: string) => `/images/gallery/${filename}`;
 const socialLinks = { instagram: "https://www.instagram.com/jeyyaevents?cplk=Zzl3OTRvZTZqaW0y" };
 
@@ -21,6 +21,23 @@ const services = [
   { title: "Pyro Musical", text: "Experience the magic of fireworks synchronized with music, creating a powerful combination of sound, light, and emotion.", icon: WandSparkles, tag: "04" },
   { title: "CO₂ Jet & Flame Effect", text: "Add energy and excitement to live performances with dynamic CO₂ jets and professionally managed flame effects.", icon: Flame, tag: "05" },
   { title: "Motor Tube Firework", text: "Create spectacular visual highlights with professionally managed motor tube fireworks displays.", icon: Wind, tag: "06" },
+  { title: "Festival Firework", text: "Bring festivals to life with vibrant fireworks displays that fill the sky with color and excitement.", icon: PartyPopper, tag: "07" },
+  { title: "Indoor & Outdoor Firework", text: "Add a memorable visual highlight with professionally planned, venue-appropriate fireworks and special effects.", icon: Building2, tag: "08" },
+];
+
+const proofPoints = [
+  { value: "10,000+", label: "Events completed" },
+  { value: "25 Yrs", label: "Experience" },
+  { value: "25+", label: "SFX products" },
+  { value: "100%", label: "Safe track record" },
+  { value: "24h", label: "Reply time" },
+];
+const proofAssurances = ["Trained Operators", "Venue Assessment", "Indoor-Safe Effects"];
+const faqs = [
+  { question: "Can we use fireworks on our own?", answer: "For a large event display, we recommend working with experienced fireworks professionals rather than handling the setup yourself. Fireworks should only be used where permitted, according to their instructions, and never indoors. We can plan a professionally managed display for your event." },
+  { question: "How much does a fireworks show cost?", answer: "Pricing depends on the show duration, scale, effects, venue, audience distance, and event location. We can tailor a proposal to your event and budget. Share your date, venue, and preferred effects to request a quote." },
+  { question: "How safe are fireworks?", answer: "No fireworks display is risk-free. Our team plans around the venue, audience separation, weather, and applicable permissions. If safe conditions cannot be maintained, the display may need to be changed or postponed." },
+  { question: "What happens in case of bad weather?", answer: "We review weather and site conditions for each event. Rain or wind can affect the venue and equipment, and strong winds can make aerial fireworks unsuitable. If conditions or local authorities make a display unsafe, we will discuss changes, a delay, or rescheduling in line with the booking terms." },
 ];
 
 const nav = [{ label: "Home", href: "#home" }, { label: "About", href: "#about" }, { label: "Services", href: "#services" }, { label: "Contact", href: "#contact" }];
@@ -63,7 +80,9 @@ function InstagramMark() { return <svg viewBox="0 0 24 24" width="17" height="17
 export default function Home() {
   const reduced = useReducedMotion();
   const heroVideoRef = useRef<HTMLVideoElement>(null);
+  const serviceTrackRef = useRef<HTMLDivElement>(null);
   const [isMobileHero, setIsMobileHero] = useState(false);
+  const [serviceScrollEdges, setServiceScrollEdges] = useState({ start: true, end: false });
   const [heroVideoPaused, setHeroVideoPaused] = useState(false);
   const [menuNote, setMenuNote] = useState("");
   const [form, setForm] = useState({ name: "", phone: "", type: "", date: "", location: "", message: "" });
@@ -76,6 +95,25 @@ export default function Home() {
     media.addEventListener("change", update);
     return () => media.removeEventListener("change", update);
   }, []);
+  useEffect(() => {
+    const track = serviceTrackRef.current;
+    if (!track) return;
+    const updateEdges = () => setServiceScrollEdges({ start: track.scrollLeft <= 2, end: track.scrollLeft + track.clientWidth >= track.scrollWidth - 2 });
+    updateEdges();
+    track.addEventListener("scroll", updateEdges, { passive: true });
+    window.addEventListener("resize", updateEdges);
+    return () => {
+      track.removeEventListener("scroll", updateEdges);
+      window.removeEventListener("resize", updateEdges);
+    };
+  }, []);
+  const scrollServices = (direction: -1 | 1) => {
+    const track = serviceTrackRef.current;
+    if (!track) return;
+    const firstCard = track.querySelector<HTMLElement>(".service-card");
+    const gap = Number.parseFloat(window.getComputedStyle(track).columnGap) || 0;
+    track.scrollBy({ left: direction * ((firstCard?.offsetWidth ?? track.clientWidth) + gap), behavior: reduced ? "auto" : "smooth" });
+  };
   const toggleHeroVideo = () => {
     const video = heroVideoRef.current;
     if (!video) return;
@@ -95,11 +133,13 @@ export default function Home() {
 
 
 
+
+      <section className="proof-stats" aria-label="Jeyya Events at a glance"><div className="container"><dl className="proof-stats-grid">{proofPoints.map((point, i) => <motion.div className="proof-stat" key={point.label} initial={reduced ? false : { opacity: 0, y: 14 }} whileInView={{ opacity: 1, y: 0 }} whileHover={reduced ? undefined : { y: -5 }} viewport={{ once: true, amount: 0.2 }} transition={{ delay: i * .06, duration: .4 }}><dt>{point.label}</dt><dd>{point.value}</dd></motion.div>)}</dl></div><div className="proof-assurances"><div className="proof-assurances-inner">{proofAssurances.map((item) => <span className="proof-assurance" key={item}><Check size={17}/>{item}</span>)}</div></div></section>
       <section className="about section-pad" id="about"><div className="container about-grid"><div className="about-visual"><div className="about-main-image"><Image src="/images/about-main.jpeg" alt="A grand fireworks display illuminating a wedding venue at night" fill sizes="(max-width: 800px) 100vw, 50vw" /></div><div className="about-inset"><Image src="/images/about-inset.jpeg" alt="Fireworks bursting over a wedding celebration" fill sizes="180px" /></div><div className="about-caption"><Sparkles size={15} /><span>MADE TO BE REMEMBERED</span></div></div><div className="about-copy"><SectionLabel>ABOUT Jeyya Events</SectionLabel><h2>Creating <em>magical</em><br/>moments.</h2><h3>Turning every celebration into an extraordinary experience.</h3><p>Jeyya Events specializes in fireworks displays, stage effects, and grand celebrations. We are passionate about creating unforgettable experiences through creativity, precision, and professional event execution.</p><p>Based in Narayangaon, Pune, our team brings spectacular visual effects to weddings, concerts, and special events across India.</p><a href="#vision" className="text-link">A little more about us <ArrowRight size={16} /></a></div></div></section>
 
       <section className="values section-pad" id="vision"><div className="container values-grid"><article className="value-card vision-card"><span className="value-watermark">01</span><div className="value-icon"><Star size={19} /></div><SectionLabel>OUR VISION</SectionLabel><p>To ensure client satisfaction and loyalty as we deliver personal and unique experiences that are beyond expectation and create long-term loyal relationships by consistently providing outstanding service that creates an overall extraordinary event experience.</p><div className="value-footer"><span>THE JEYYA PROMISE</span><Sparkles size={16} /></div></article><article className="value-card mission-card"><span className="value-watermark">02</span><div className="value-icon"><Heart size={19} /></div><SectionLabel>OUR MISSION</SectionLabel><p><span className="mission-brand">Jeyya Events</span> delivers high-quality, valuable services while focusing on the uniqueness, special characteristics, and individual needs of each client’s event project.</p><div className="value-footer"><span>BUILT AROUND YOU</span><Sparkles size={16} /></div></article></div></section>
 
-      <section className="services section-pad" id="services"><div className="container"><div className="section-head"><SectionLabel>OUR SERVICES</SectionLabel><h2>What we <em>offer</em></h2><p>Creating extraordinary experiences through spectacular effects.</p></div><div className="service-grid">{services.map((service, i) => <motion.article className="service-card" key={service.title} initial={reduced ? false : { opacity: 0, y: 22 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: 0.2 }} transition={{ delay: i * .06, duration: .5 }}><div className="service-top"><span className="service-icon"><service.icon size={22} strokeWidth={1.6} /></span><span className="service-number">{service.tag}</span></div><h3>{service.title}</h3><p>{service.text}</p><a href="#contact" aria-label={`Enquire about ${service.title}`} className="card-arrow"><ArrowUpRight size={17} /></a></motion.article>)}</div><div className="service-bottom"><span>CRAFTED WITH CARE. EXECUTED WITH PRECISION.</span><a href="#contact">Plan your celebration <ArrowRight size={15} /></a></div></div></section>
+      <section className="services section-pad" id="services"><div className="container"><div className="section-head"><SectionLabel>OUR SERVICES</SectionLabel><h2>What we <em>offer</em></h2><p>Creating extraordinary experiences through spectacular effects.</p></div><div className="service-scroll-tools"><span className="service-scroll-desktop">Scroll to explore services</span><span className="service-scroll-mobile">Swipe to explore services</span><div><button type="button" aria-label="Scroll to previous services" onClick={() => scrollServices(-1)} disabled={serviceScrollEdges.start}><ChevronLeft size={18}/></button><button type="button" aria-label="Scroll to more services" onClick={() => scrollServices(1)} disabled={serviceScrollEdges.end}><ChevronRight size={18}/></button></div></div><div className="service-grid" ref={serviceTrackRef} role="region" aria-label="Scrollable services" tabIndex={0}>{services.map((service, i) => <motion.article className="service-card" key={service.title} initial={reduced ? false : { opacity: 0, y: 22 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: 0.05 }} transition={{ delay: i * .06, duration: .5 }}><div className="service-top"><span className="service-icon"><service.icon size={22} strokeWidth={1.6} /></span><span className="service-number">{service.tag}</span></div><h3>{service.title}</h3><p>{service.text}</p><a href="#contact" aria-label={`Enquire about ${service.title}`} className="card-arrow"><ArrowUpRight size={17} /></a></motion.article>)}</div><div className="service-bottom"><span>CRAFTED WITH CARE. EXECUTED WITH PRECISION.</span><a href="#contact">Plan your celebration <ArrowRight size={15} /></a></div></div></section>
 
 
 
@@ -107,7 +147,9 @@ export default function Home() {
 
       <section className="service-area section-pad" id="service-area"><div className="container"><div className="service-area-heading"><SectionLabel>OUR SERVICE LOCATIONS</SectionLabel><h2>Bringing Extraordinary<br/><em>Celebrations Across India</em></h2><p>From grand weddings and concerts to corporate celebrations and special events, Jeyya Events brings spectacular fireworks displays and professional stage effects to events across India. Our team works with clients to create memorable experiences at destinations nationwide.</p></div><div className="service-area-base"><MapPin size={19}/><p><strong>Based in Narayangaon, Pune, Maharashtra</strong><span>We travel to event destinations throughout India. Our listed regions describe service coverage, not branch offices.</span></p></div><div className="service-region-grid"><article className="service-region"><h3>North & Central India</h3><p>Delhi NCR · Chandigarh · Haryana · Himachal Pradesh · Jammu and Kashmir · Ladakh · Punjab · Rajasthan · Uttar Pradesh · Uttarakhand · Madhya Pradesh · Chhattisgarh</p></article><article className="service-region"><h3>West India</h3><p>Maharashtra · Gujarat · Goa · Dadra and Nagar Haveli and Daman and Diu</p></article><article className="service-region"><h3>South India</h3><p>Andhra Pradesh · Karnataka · Kerala · Tamil Nadu · Telangana · Puducherry · Lakshadweep · Andaman and Nicobar Islands</p></article><article className="service-region"><h3>East & Northeast India</h3><p>Bihar · Jharkhand · Odisha · West Bengal · Assam · Arunachal Pradesh · Manipur · Meghalaya · Mizoram · Nagaland · Sikkim · Tripura</p></article></div></div></section>
 
+
       <section className="contact section-pad" id="contact"><div className="container"><div className="contact-heading"><SectionLabel>LET’S MAKE IT HAPPEN</SectionLabel><h2>Let’s make your event<br/><em>extraordinary.</em></h2><p>Planning a wedding, concert, celebration, or special event? Tell us what you have in mind and let’s make it unforgettable.</p></div><div className="contact-grid"><div className="contact-details"><div className="contact-block"><span className="contact-icon"><Phone size={18}/></span><div><small>CUSTOMER CARE</small><a href={`tel:+91${phone}`}>+91 70572 92923 <ArrowUpRight size={14}/></a><a href="tel:+912132244444">02132 244 444 <ArrowUpRight size={14}/></a></div></div><div className="contact-block"><span className="contact-icon"><MapPin size={18}/></span><div><small>FIND US</small><a className="address-link" href={mapsUrl} target="_blank" rel="noreferrer">{address}<ArrowUpRight size={14}/></a></div></div><a className="contact-whatsapp" href={waUrl()} target="_blank" rel="noreferrer"><span className="whatsapp-dot">◉</span><span><b>Prefer WhatsApp?</b><small>We’re one message away.</small></span><ArrowRight size={17}/></a><div className="contact-hours"><span>HERE FOR YOUR NEXT BIG MOMENT</span><Sparkles size={15}/></div></div><form className="contact-form" onSubmit={submit}><div className="form-top"><h3>Tell us about it.</h3><span>We’ll be in touch soon.</span></div><div className="form-row"><label>FULL NAME<input required autoComplete="name" value={form.name} onChange={e => setForm({...form,name:e.target.value})} placeholder="Your name"/></label><label>PHONE NUMBER<input required type="tel" autoComplete="tel" value={form.phone} onChange={e => setForm({...form,phone:e.target.value})} placeholder="10 digit mobile number"/></label></div><div className="form-row"><label>EVENT TYPE<select required value={form.type} onChange={e => setForm({...form,type:e.target.value})}><option value="">Choose an event</option><option>Wedding</option><option>Concert</option><option>Private celebration</option><option>Corporate event</option><option>Other</option></select></label><label>EVENT DATE<input type="date" value={form.date} onChange={e => setForm({...form,date:e.target.value})}/></label></div><label>EVENT LOCATION<input value={form.location} onChange={e => setForm({...form,location:e.target.value})} placeholder="City or venue"/></label><label>A NOTE FOR OUR TEAM<textarea rows={3} value={form.message} onChange={e => setForm({...form,message:e.target.value})} placeholder="Tell us a little about what you’re planning…"/></label>{formError && <p className="form-error" role="alert">{formError}</p>}{menuNote && <p className="form-note" role="status"><Check size={15}/>{menuNote}</p>}<button className="button button-red form-submit" type="submit" disabled={sending}>{sending ? "Opening WhatsApp…" : "Send your enquiry"}<ArrowRight size={16}/></button><small className="form-config">This form opens WhatsApp with your details. Your enquiry is sent when you press Send in WhatsApp.</small></form></div></div></section>
+      <section className="faq-section section-pad" id="faq"><div className="container"><motion.div className="faq-heading" initial={reduced ? false : { opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: 0.3 }} transition={{ duration: .45 }}><SectionLabel>FREQUENTLY ASKED QUESTIONS</SectionLabel><h2>Good to <em>know.</em></h2><p>Helpful details for planning your fireworks display.</p></motion.div><div className="faq-grid">{[0, 1].map((column) => <div className="faq-column" key={column}>{faqs.filter((_, index) => index % 2 === column).map((faq, itemIndex) => { const i = column + itemIndex * 2; return <motion.details className="faq-item" key={faq.question} open={i === 0} initial={reduced ? false : { opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: 0.15 }} transition={{ delay: i * .07, duration: .4 }}><summary>{faq.question}</summary><p>{faq.answer}</p></motion.details>; })}</div>)}</div></div></section>
 
     </main>
     <footer className="footer"><div className="container"><div className="footer-main"><div className="footer-brand"><Brand footer/><p>Fireworks, stage effects, and celebrations made unforgettable. Let’s make a little magic together.</p><a className="footer-wa" href={waUrl()} target="_blank" rel="noreferrer"><span className="whatsapp-dot">◉</span> Say hello on WhatsApp <ArrowRight size={15}/></a></div><div className="footer-col"><small>EXPLORE</small>{nav.map(link => <a key={link.label} href={link.href}>{link.label}</a>)}</div><div className="footer-col"><small>WHAT WE DO</small>{services.map(service => <a key={service.title} href="#services">{service.title}</a>)}</div><div className="footer-col footer-contact"><small>FIND Jeyya Events</small><a className="footer-phone-link" href={`tel:+91${phone}`}><Smartphone size={15} aria-hidden="true"/>+91 70572 92923</a><a className="footer-phone-link" href="tel:+912132244444"><Phone size={15} aria-hidden="true"/>02132 244 444</a><a href={mapsUrl} target="_blank" rel="noreferrer">Narayangaon, Pune<br/>Maharashtra – 410504</a><div className="social-links"><a aria-label="Jeyya Events on Instagram" href={socialLinks.instagram} target="_blank" rel="noreferrer"><InstagramMark/></a><a aria-label="Jeyya Events location on Google Maps" href={mapsUrl} target="_blank" rel="noreferrer"><MapPin size={17}/></a></div></div></div><div className="footer-bottom"><span>© {new Date().getFullYear()} Jeyya Events. ALL RIGHTS RESERVED.</span><span>MADE FOR MOMENTS THAT MATTER <span className="gold-dot">✦</span></span></div></div></footer>
