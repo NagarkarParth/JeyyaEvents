@@ -20,14 +20,15 @@ const ritualPhotos = [
 ];
 
 const services = [
-  { title: "Computerized Firework", text: "Precision-controlled fireworks displays designed to create spectacular visual experiences for weddings, celebrations, and special events.", icon: Sparkles, tag: "01", image: "/images/service-computerized-firework.png" },
+  { title: "Indoor & Outdoor Firework", text: "Add a memorable visual highlight with professionally planned, venue-appropriate fireworks and special effects.", icon: Building2, tag: "01", image: "/images/service-indoor-outdoor-firework.png", imageAlt: "Indoor wedding sparklers and outdoor fireworks display" },
   { title: "Rooftop Display", text: "Elevate your celebration with breathtaking rooftop fireworks displays that transform the night sky into a memorable experience.", icon: ArrowUpRight, tag: "02", image: "/images/service-rooftop-display.png", imageAlt: "A couple watching golden fireworks light up the night sky" },
   { title: "Concert Special Effect", text: "Create unforgettable concert moments with professional stage effects and spectacular visual experiences.", icon: Music2, tag: "03", image: "/images/service-concert-special-effect.png", imageAlt: "Golden fireworks above a live concert stage and crowd" },
   { title: "Pyro Musical", text: "Experience the magic of fireworks synchronized with music, creating a powerful combination of sound, light, and emotion.", icon: WandSparkles, tag: "04", image: "/images/service-pyro-musical.png", imageAlt: "Fire performers spinning sparks and flames at night" },
   { title: "CO₂ Jet & Flame Effect", text: "Add energy and excitement to live performances with dynamic CO₂ jets and professionally managed flame effects.", icon: Flame, tag: "05", image: "/images/service-co2-jet-flame-effect.png", imageAlt: "Stage pyro, flames, and CO₂ jets at a live festival" },
-  { title: "Motor Tube Firework", text: "Create spectacular visual highlights with professionally managed motor tube fireworks displays.", icon: Wind, tag: "06", image: "/images/service-motor-tube-firework.png", imageAlt: "Orange fireworks mortar tubes secured in a launch rack" },
+  { title: "Computerized Firework", text: "Precision-controlled fireworks displays designed to create spectacular visual experiences for weddings, celebrations, and special events.", icon: Sparkles, tag: "06", image: "/images/service-computerized-firework.png" },
   { title: "Festival Firework", text: "Bring festivals to life with vibrant fireworks displays that fill the sky with color and excitement.", icon: PartyPopper, tag: "07", image: "/images/service-festival-firework.png", imageAlt: "Golden festival fireworks filling the night sky" },
-  { title: "Indoor & Outdoor Firework", text: "Add a memorable visual highlight with professionally planned, venue-appropriate fireworks and special effects.", icon: Building2, tag: "08", image: "/images/service-indoor-outdoor-firework.png", imageAlt: "Indoor wedding sparklers and outdoor fireworks display" },
+  { title: "Motor Tube Firework", text: "Create spectacular visual highlights with professionally managed motor tube fireworks displays.", icon: Wind, tag: "08", image: "/images/service-motor-tube-firework.png", imageAlt: "Orange fireworks mortar tubes secured in a launch rack" },
+
 ];
 
 const proofPoints = [
