@@ -31,8 +31,8 @@ const services = [
 ];
 
 const proofPoints = [
-  { value: "10,000+", label: "Events completed" },
-  { value: "25 Yrs", label: "Experience" },
+  { value: "5,000+", label: "Events completed" },
+  { value: "10 Yrs", label: "Experience" },
   { value: "25+", label: "SFX products" },
   { value: "100%", label: "Safe track record" },
   { value: "24h", label: "Reply time" },
@@ -48,7 +48,7 @@ const faqs = [
 const nav = [{ label: "Home", href: "#home" }, { label: "About", href: "#about" }, { label: "Rituals", href: "#rituals" }, { label: "Services", href: "#services" }, { label: "Contact", href: "#contact" }];
 
 function Brand({ footer = false }: { footer?: boolean }) {
-  return <a href="#home" className={footer ? "brand-footer-logo" : "brand"} aria-label="Jeyya Events home"><Image src="/images/glossy-jeyya-events-logo.png" alt="Jeyya Events — Stage effects and fireworks" width={1774} height={887} priority={!footer} className={footer ? "brand-footer-image" : "brand-logo"} /></a>;
+  return <a href={footer ? "#home" : "/owner/login"} className={footer ? "brand-footer-logo" : "brand"} aria-label={footer ? "Jeyya Events home" : "Owner login"}><Image src="/images/glossy-jeyya-events-logo.png" alt="Jeyya Events — Stage effects and fireworks" width={1774} height={887} priority={!footer} className={footer ? "brand-footer-image" : "brand-logo"} /></a>;
 }
 
 function Header() {

@@ -1,0 +1,17 @@
+.owner-one-time-dashboard{max-width:1040px;padding-top:clamp(80px,12vh,150px)}
+.owner-one-time-dashboard>h1{font:500 clamp(42px,6vw,64px)/1.1 var(--serif);letter-spacing:-.035em;margin:14px 0}
+.owner-one-time-dashboard>p{max-width:560px;color:#797267;font-size:16px;line-height:1.8;margin:0 0 27px}
+.owner-one-time-dashboard .owner-create{min-height:52px;margin-bottom:48px}
+.owner-privacy-note,.owner-whatsapp-note{display:flex;align-items:flex-start;gap:14px;max-width:720px;padding:19px 21px;border:1px solid #e8decc;background:#fffdf8;color:#9a7620}
+.owner-privacy-note>div{display:grid;gap:6px}
+.owner-privacy-note b{font:600 16px var(--serif);color:#40382d}
+.owner-privacy-note span,.owner-whatsapp-note span{color:#756d61;font-size:12px;line-height:1.7}
+.owner-whatsapp-note{border-top:0;color:#14834c}
+.owner-field-hint{font-size:10px;font-weight:400;color:#8d8372}
+.owner-item-row>label{min-width:0}
+.owner-share-hint{margin:14px 0 0;color:#827969;font-size:11px;line-height:1.7}
+.owner-image-modal{max-width:760px}.owner-image-modal>img{display:block;width:min(100%,600px);height:auto;max-height:72vh;object-fit:contain;margin:16px auto 0;border:1px solid #e5dac6;box-shadow:0 8px 30px #24160d1c}
+.owner-form-actions .owner-primary{background:#16824c;box-shadow:0 6px 15px #16824c22}
+.owner-form-actions .owner-primary:hover{background:#116a3d}
+@media(max-width:760px){.owner-one-time-dashboard{padding-top:65px}.owner-one-time-dashboard>h1{font-size:43px}.owner-one-time-dashboard>p{font-size:14px}.owner-one-time-dashboard .owner-create{margin-bottom:30px}.owner-privacy-note,.owner-whatsapp-note{padding:16px}}
+@media(max-width:760px){.owner-item-row{grid-template-columns:27px minmax(0,1fr) 34px;grid-template-areas:"index name remove" ". quantity remove" ". price remove" ". total remove";align-items:start;gap:12px 10px}.owner-item-index{grid-area:index;align-self:center}.owner-item-name{grid-area:name}.owner-item-row>label:nth-of-type(2){grid-area:quantity}.owner-item-row>label:nth-of-type(3){grid-area:price}.owner-item-row .owner-line-total{grid-area:total}.owner-item-row .owner-icon-button{grid-area:remove;align-self:center;justify-self:center;margin:0}.owner-item-row>label{min-width:0}.owner-item-row input{min-width:0}}

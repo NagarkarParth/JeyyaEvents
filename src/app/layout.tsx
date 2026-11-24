@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
-import { DM_Sans, Playfair_Display } from "next/font/google";
+import localFont from "next/font/local";
 import "./globals.css";
 
-const sans = DM_Sans({ subsets: ["latin"], variable: "--font-dm-sans", display: "swap" });
-const serif = Playfair_Display({ subsets: ["latin"], variable: "--font-playfair-display", display: "swap" });
+const sans = localFont({ src: "../../public/fonts/dm-sans-latin.woff2", variable: "--font-dm-sans", display: "swap", weight: "100 1000" });
+const serif = localFont({ src: "../../public/fonts/playfair-display-latin.woff2", variable: "--font-playfair-display", display: "swap", weight: "400 900" });
 
 const description = "Jeyya Events delivers spectacular fireworks displays, computerized fireworks, wedding stage effects, concert special effects, and pyro musical experiences for events across India. Contact us to plan your celebration.";
 const site = process.env.NEXT_PUBLIC_SITE_URL?.replace(/\/$/, "");
