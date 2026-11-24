@@ -70,9 +70,37 @@ export async function requireOwner(): Promise<OwnerSession> {
 }
 
 export function isSameOrigin(request: Request) {
-  const expected = new URL(request.url).origin;
+  const requestOrigin = new URL(request.url).origin;
+  const configuredOrigin = process.env.NEXT_PUBLIC_SITE_URL;
+  const allowedOrigins = new Set<string>();
+
+  if (configuredOrigin) {
+    const canonical = new URL(configuredOrigin);
+    allowedOrigins.add(canonical.origin);
+    const wwwAlias = new URL(canonical);
+    wwwAlias.hostname = canonical.hostname.startsWith("www.")
+      ? canonical.hostname.slice(4)
+      : `www.${canonical.hostname}`;
+    allowedOrigins.add(wwwAlias.origin);
+  }
+
+  // Local development may use localhost even when a production site URL is configured.
+  if (process.env.NODE_ENV !== "production") allowedOrigins.add(requestOrigin);
+
   const origin = request.headers.get("origin");
-  if (origin) return origin === expected;
+  if (origin) {
+    try {
+      return allowedOrigins.has(new URL(origin).origin);
+    } catch {
+      return false;
+    }
+  }
+
   const referer = request.headers.get("referer");
-  return Boolean(referer && new URL(referer).origin === expected);
+  if (!referer) return false;
+  try {
+    return allowedOrigins.has(new URL(referer).origin);
+  } catch {
+    return false;
+  }
 }
