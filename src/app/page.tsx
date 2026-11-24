@@ -14,8 +14,8 @@ const mapsUrl = "https://maps.app.goo.gl/grFMgddvhYX2Xd976";
 const img = (filename: string) => `/images/gallery/${filename}`;
 const socialLinks = { instagram: "https://www.instagram.com/jeyyaevents?cplk=Zzl3OTRvZTZqaW0y" };
 const ritualPhotos = [
-  { src: "/images/ritual-owner.png", alt: "Jeyya Events owner in a blue and gold outfit", heading: "A moment for", accent: "blessings.", copy: "We honour the traditions that bring meaning to every celebration. A quiet prayer before the festivities begin is a beautiful way to welcome joy, gratitude, and auspicious beginnings.", attribution: "~Jayya Da Phulsuundar", attributionRole: "Owner" },
-  { src: "/images/ritual-owner-2.jpeg", alt: "Jeyya Events owner in traditional white attire", heading: "A tilak for", accent: "auspicious beginnings.", copy: "A traditional tilak offers a warm welcome and a wish for joy, gratitude, and good fortune as the celebration begins.", attribution: "~Virrajj D Fulsunddar", attributionRole: "Director" },
+  { src: "/images/ritual-owner.png", alt: "Jeyya Events owner in a blue and gold outfit", heading: "A moment for", accent: "blessings.", copy: "We are all like fireworks. We climb, shine and always go our separate ways and become further apart. But even if that time comes, let's not disappear like a firework, and continue to shine... forever.", attribution: "~Jayya Da Phulsuundar", attributionRole: "Owner" },
+  { src: "/images/ritual-owner-2.jpeg", alt: "Jeyya Events owner in traditional white attire", heading: "A tilak for", accent: "auspicious beginnings.", copy: "May Every firework you see tonight feel like God saying : Still beautiful,still worth it", attribution: "~Virrajj D Fulsunddar", attributionRole: "Director" },
   { src: "/images/ritual-owner-3.png", alt: "Portrait remembered in loving memory", heading: "In loving memory", accent: "Rest in Peace.", copy: "" },
 ];
 
